@@ -36,7 +36,6 @@ export class Note extends Component {
 
   render() {
     const { note } = this.props;
-
     const initialTextValue = note ? note.text : '';
     const noteText = this.state.noteText || initialTextValue;
     return (
