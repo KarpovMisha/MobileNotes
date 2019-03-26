@@ -27,11 +27,11 @@ export class Note extends Component {
     this.setState({ noteText })
   }
 
-  handleNote = () => {
+  saveNote = () => {
     const { noteText } = this.state;
     const { updateNote, navigation } = this.props;
     updateNote(noteText);
-    navigation.goBack();
+    navigation.navigate('Project');
   }
 
   render() {
@@ -43,7 +43,7 @@ export class Note extends Component {
       <NoteDetail
         noteText={noteText}
         onChangeNoteText={this.onChangeNote}
-        handleNote={this.handleNote}
+        saveNote={this.saveNote}
       />
     )
   }

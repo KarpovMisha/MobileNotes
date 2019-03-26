@@ -8,7 +8,7 @@ import { NoteList } from '../../components/NoteList';
 // import { ProjectNameInput } from "../components/ProjectNameInput";
 // import { connect } from 'react-redux'
 // import { bindActionCreators } from 'redux'
-import { removeNote, activeNote } from '../../redux/reducers/project';
+import { removeNote, setActiveNote } from '../../redux/reducers/project';
 
 const styles = StyleSheet.create({
   container: {
@@ -27,19 +27,19 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
   removeNote,
-  activeNote
+  setActiveNote
 };
 
 export class Project extends Component {
   static propTypes = {
     project: object,
     removeNote: func,
-    activeNote: func
+    setActiveNote: func
   }
 
   navigateNote = noteId => {
-    const { navigation, activeNote } = this.props
-    activeNote(noteId);
+    const { navigation, setActiveNote } = this.props
+    setActiveNote(noteId);
     navigation.navigate('Note');
   }
 

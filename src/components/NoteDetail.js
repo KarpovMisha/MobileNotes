@@ -29,11 +29,11 @@ export class NoteDetail extends Component {
   static propTypes = {
     noteText: string,
     onChangeNoteText: func,
-    handleNote: func
+    saveNote: func
   }
 
   render() {
-    const { noteText, onChangeNoteText, handleNote } = this.props;
+    const { noteText, onChangeNoteText, saveNote } = this.props;
     return (
       <View style={styles.note}>
         <TextInput
@@ -47,7 +47,7 @@ export class NoteDetail extends Component {
 
         <SaveButton
           style={styles.button}
-          onPress={handleNote}
+          onPress={saveNote}
         />
       </View>
     )

@@ -42,7 +42,7 @@ export class NoteList extends Component {
 
   render() {
     const { notes } = this.props;
-
+    console.log('notes', notes);
     return (
       <SwipeableFlatList
         data={notes}

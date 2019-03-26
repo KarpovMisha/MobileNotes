@@ -58,7 +58,7 @@ export const SELECTORS = {
   handleNotes,
 };
 
-export function activeNote(id) {
+export function setActiveNote(id) {
   return {
     type: ACTIVE_NODE,
     id
@@ -91,10 +91,12 @@ export function updateNote(text) {
 }
 
 function handleUpdateNote(project, text, noteId) {
-  project.notes.map(note => {
+  const notes = project.notes.map(_note => {
+    const note = {..._note};
     if(note.id === noteId) {
       note.text = text;
     }
-  })
-  return project;
+    return note;
+  });
+  return {...project, notes};
 }
