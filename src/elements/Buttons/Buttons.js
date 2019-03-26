@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { StyleSheet, TouchableOpacity, Text } from 'react-native';
+import { string } from 'prop-types';
 
 const styles = StyleSheet.create({
   headerButton: {
@@ -28,13 +29,21 @@ export class IconButton extends PureComponent {
 }
 
 export class AddButton extends PureComponent {
+  static propTypes = {
+    iconName: string
+  }
+  static defaultProps = {
+    iconName: 'add'
+  }
+
   render() {
+    const { iconName, onPress } = this.props;
     return (
       <IconButton
         style={styles.headerButton}
-        iconName="add"
+        iconName={iconName}
         color="white"
-        onPress={this.props.onPress}
+        onPress={onPress}
       />
     )
   }

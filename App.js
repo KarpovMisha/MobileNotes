@@ -25,6 +25,14 @@ const navigator = createStackNavigator(
   },
   {
     initialRouteName: 'Projects'
+  },
+  {
+    navigationOptions: {
+      headerStyle: {
+        backgroundColor: '#f4511e',
+      },
+      headerTintColor: '#fff'
+    }
   }
 );
 

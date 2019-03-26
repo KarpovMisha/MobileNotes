@@ -5,6 +5,7 @@ import { Text, View } from 'react-native';
 
 import { ProjectList } from '../../components/ProjectList';
 import { setProject } from '../../redux/reducers/project';
+import { AddButton } from '../../elements/Buttons/Buttons';
 import styles from './styles';
 
 const mapStateToProps = state => {
@@ -23,6 +24,12 @@ class Projects extends Component {
     setProject: func
   }
 
+  static navigationOptions = ({ navigation }) => ({
+    headerRight: (
+      <AddButton iconName="add project" onPress={() => navigation.navigate('Project')} />
+    )
+  })
+
   navigateProject = project => {
     const { setProject, navigation } = this.props;
 
@@ -35,7 +42,6 @@ class Projects extends Component {
 
     return (
       <View style={styles.container}>
-        <Text>Projects List</Text>
         <ProjectList
           projects={projects}
           onPressProject={this.navigateProject}

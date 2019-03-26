@@ -3,6 +3,7 @@ const avatar_2 = require('../../images/avatar_2.jpg');
 const avatar_3 = require('../../images/avatar_3.jpg');
 
 const STATE_KEY = 'projects';
+const ADD_PROJECT = `${STATE_KEY}/ADD_PROJECT`;
 
 const user_1 = {
   userName: 'Мурзик',
@@ -62,9 +63,25 @@ const initialState = {
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
-
+    case ADD_PROJECT: {
+      const { id, name } = action.payload;
+      const oneMore = handleProject(state.projects, id, name);
+      return {...state, projects: oneMore};
+    }
     default: {
       return state;
     }
+  }
+}
+
+function handleProject(projects, id, name) {
+  const newProjects = [...projects, {id, name, notes: [] }];
+  return newProjects;
+}
+
+export function addProject(id, name) {
+  return {
+    type: ADD_PROJECT,
+    payload: { id, name }
   }
 }

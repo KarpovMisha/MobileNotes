@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { array, func } from 'prop-types';
 import { View, StyleSheet, SwipeableFlatList, Alert } from 'react-native';
 import { NoteListItem } from './NoteListItem'
-// import { RemoveButton } from './Buttons'
 
 const styles = StyleSheet.create({
   quickActions: {
@@ -42,7 +41,7 @@ export class NoteList extends Component {
 
   render() {
     const { notes } = this.props;
-    console.log('notes', notes);
+
     return (
       <SwipeableFlatList
         data={notes}
