@@ -30,7 +30,7 @@ export class Note extends Component {
   handleNote = () => {
     const { noteText } = this.state;
     const { updateNote, navigation } = this.props;
-    // updateNote(noteText);
+    updateNote(noteText);
     navigation.goBack();
   }
 
