@@ -25,7 +25,6 @@ export class ProjectList extends Component {
 
   render() {
     const { projects } = this.props;
-
     return (
       <FlatList
         data={projects}

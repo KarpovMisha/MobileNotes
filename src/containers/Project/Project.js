@@ -19,10 +19,9 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = state => {
   return {
     project: state.project.project,
-    projectId: state.project.project.id
   };
 };
 
@@ -34,15 +33,14 @@ const mapDispatchToProps = {
 export class Project extends Component {
   static propTypes = {
     project: object,
-    projectId: string,
     removeNote: func,
     activeNote: func
   }
 
   navigateNote = noteId => {
-    const { projectId, navigation, activeNote } = this.props
+    const { navigation, activeNote } = this.props
     activeNote(noteId);
-    navigation.navigate('Note', { noteId, projectId })
+    navigation.navigate('Note');
   }
 
   removeNote = noteId => {
