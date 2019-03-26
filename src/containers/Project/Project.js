@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
-import { object, func, array } from 'prop-types';
+import { object, func, array, string } from 'prop-types';
 
 import { NoteList } from '../../components/NoteList';
 import { ProjectNameInput } from '../../components/ProjectNameInput';
@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => {
   return {
     project: state.project.project,
+    projectId: state.project.project.id,
     projects: state.projects.projects
   };
 };
@@ -37,14 +38,24 @@ export class Project extends Component {
     projects: array,
     removeNote: func,
     addProject: func,
-    setActiveNote: func
+    setActiveNote: func,
+    projectId: string
   }
 
   static navigationOptions = ({ navigation }) => ({
     headerRight: (
-      <AddButton iconName="add note" onPress={() => navigation.navigate('Project')} />
+      <AddButton iconName="add note" onPress={navigation.getParam('onSaveNote')} />
     )
   })
+
+  componentDidMount() {
+    this.props.navigation.setParams({ onSaveNote: this.onSaveNote })
+  }
+
+  onSaveNote = () => {
+    const { projectId } = this.props;
+    console.log('onSaveNote', projectId);
+  }
 
   navigateNote = noteId => {
     const { navigation, setActiveNote } = this.props
