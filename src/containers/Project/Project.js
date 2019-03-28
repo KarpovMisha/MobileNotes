@@ -2,10 +2,11 @@ import React, { Component } from 'react'
 import { View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { object, func, array, string } from 'prop-types';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import { NoteList } from '../../components/NoteList';
 import { ProjectNameInput } from '../../components/ProjectNameInput';
-import { removeNote, setActiveNote } from '../../redux/reducers/project';
+import { removeNote, setActiveNote, initialProjectFromStore } from '../../redux/reducers/project';
 import { addProject } from '../../redux/reducers/projects';
 import { AddButton } from '../../elements/Buttons/Buttons';
 
@@ -21,7 +22,6 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => {
   return {
     project: state.project.project,
-    projectId: state.project.project.id,
     projects: state.projects.projects
   };
 };
@@ -29,7 +29,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {
   removeNote,
   setActiveNote,
-  addProject
+  addProject,
+  initialProjectFromStore
 };
 
 export class Project extends Component {
@@ -39,28 +40,28 @@ export class Project extends Component {
     removeNote: func,
     addProject: func,
     setActiveNote: func,
-    projectId: string
+    initialProjectFromStore: func
   }
 
   static navigationOptions = ({ navigation }) => ({
     headerRight: (
-      <AddButton iconName="add note" onPress={navigation.getParam('onSaveNote')} />
+      <AddButton iconName="add note" onPress={() => navigation.navigate('CreateNote')} />
     )
   })
-
-  componentDidMount() {
-    this.props.navigation.setParams({ onSaveNote: this.onSaveNote })
-  }
-
-  onSaveNote = () => {
-    const { projectId } = this.props;
-    console.log('onSaveNote', projectId);
-  }
 
   navigateNote = noteId => {
     const { navigation, setActiveNote } = this.props
     setActiveNote(noteId);
     navigation.navigate('Note');
+  }
+
+  componentDidMount() {
+    AsyncStorage.getItem('project').then(value => {
+      const init = JSON.parse(value);
+      if (Object.keys(init).length > 0) {
+        this.props.initialProjectFromStore(init);
+      }
+    })
   }
 
   removeNote = noteId => {
@@ -74,8 +75,6 @@ export class Project extends Component {
     const projectId = 'project_' + (projects.length + 1);
     addProject(projectId, name);
     navigation.navigate('Projects');
-    // this.props.navigation.setParams({ projectId: newProjectId, name })
-    // this.props.addProject(newProjectId, name)
   }
 
   render() {

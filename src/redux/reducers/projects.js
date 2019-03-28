@@ -1,9 +1,12 @@
+import AsyncStorage from '@react-native-community/async-storage';
+
 const avatar_1 = require('../../images/avatar_1.jpg');
 const avatar_2 = require('../../images/avatar_2.jpg');
 const avatar_3 = require('../../images/avatar_3.jpg');
 
 const STATE_KEY = 'projects';
 const ADD_PROJECT = `${STATE_KEY}/ADD_PROJECT`;
+const INIT_PROJECTS = `${STATE_KEY}/INIT_PROJECTS`;
 
 const user_1 = {
   userName: 'Мурзик',
@@ -66,11 +69,26 @@ export default function reducer(state = initialState, action) {
     case ADD_PROJECT: {
       const { id, name } = action.payload;
       const oneMore = handleProject(state.projects, id, name);
-      return {...state, projects: oneMore};
+      const newState = {...state, projects: oneMore};
+
+      AsyncStorage.setItem('projects', JSON.stringify(newState));
+      return newState;
     }
+
+    case INIT_PROJECTS: {
+      return action.payload.projects;
+    }
+
     default: {
       return state;
     }
+  }
+}
+
+export function initiaProjectsFromStore(projects) {
+  return {
+    type: INIT_PROJECTS,
+    payload: { projects }
   }
 }
 

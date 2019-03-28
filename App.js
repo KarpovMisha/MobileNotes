@@ -14,6 +14,7 @@ import configureStore from './src/redux/store';
 import Projects from './src/containers/Projects/Projects';
 import Project from './src/containers/Project/Project';
 import Note from './src/containers/Note/Note';
+import CreateNote from './src/containers/Note/CreateNote';
 
 const store = configureStore({});
 
@@ -21,7 +22,8 @@ const navigator = createStackNavigator(
   {
     Projects: { screen: Projects },
     Project: { screen: Project },
-    Note: { screen: Note }
+    Note: { screen: Note },
+    CreateNote: { screen: CreateNote }
   },
   {
     initialRouteName: 'Projects'

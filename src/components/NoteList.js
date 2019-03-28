@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { array, func } from 'prop-types';
-import { View, StyleSheet, SwipeableFlatList, Alert } from 'react-native';
+import { StyleSheet, SwipeableFlatList, Alert } from 'react-native';
+
 import { NoteListItem } from './NoteListItem'
 
 const styles = StyleSheet.create({
