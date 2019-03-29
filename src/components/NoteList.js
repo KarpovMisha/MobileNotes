@@ -4,13 +4,6 @@ import { StyleSheet, SwipeableFlatList, Alert } from 'react-native';
 
 import { NoteListItem } from './NoteListItem'
 
-const styles = StyleSheet.create({
-  quickActions: {
-    flex: 1,
-    alignItems: 'flex-end'
-  }
-})
-
 export class NoteList extends Component {
   static propTypes = {
     notes: array,

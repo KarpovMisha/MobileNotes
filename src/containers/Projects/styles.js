@@ -6,5 +6,8 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
+  },
+  swipe: {
+    height: 50
   }
 });

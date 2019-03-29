@@ -3,11 +3,10 @@ import { connect} from 'react-redux';
 import { object, func  } from 'prop-types';
 import { View, TouchableHighlight, Text } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
-import Swipeable from 'react-native-swipeable';
 
 import { ProjectList } from '../../components/ProjectList';
 import { setProject } from '../../redux/reducers/project';
-import { initiaProjectsFromStore } from '../../redux/reducers/projects';
+import { initiaProjectsFromStore, removeProject } from '../../redux/reducers/projects';
 import { AddButton } from '../../elements/Buttons/Buttons';
 import styles from './styles';
 
@@ -19,21 +18,16 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
   setProject,
-  initiaProjectsFromStore
+  initiaProjectsFromStore,
+  removeProject
 };
-
-const leftContent = <Text>Pull to activate</Text>;
-
-const rightButtons = [
-  <TouchableHighlight><Text>Button 1</Text></TouchableHighlight>,
-  <TouchableHighlight><Text>Button 2</Text></TouchableHighlight>
-];
 
 class Projects extends Component {
   static propTypes = {
     projects: object,
     setProject: func,
-    initiaProjectsFromStore: func
+    initiaProjectsFromStore: func,
+    removeProject: func
   }
 
   static navigationOptions = ({ navigation }) => ({
@@ -59,19 +53,17 @@ class Projects extends Component {
     navigation.navigate('Project');
   }
 
+
+
   render() {
     const { projects } = this.props.projects;
 
     return (
-      <View style={styles.container}>
-        <ProjectList
-          projects={projects}
-          onPressProject={this.navigateProject}
-        />
-        <Swipeable leftContent={leftContent} rightButtons={rightButtons}>
-          <Text>My swipeable content</Text>
-        </Swipeable>
-      </View>
+      <ProjectList
+        projects={projects}
+        onPressProject={this.navigateProject}
+        removeProject={this.props.removeProject}
+      />
     )
   }
 }

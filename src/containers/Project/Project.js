@@ -89,13 +89,11 @@ export class Project extends Component {
     }
 
     return (
-      <View style={styles.container}>
-        <NoteList
-          notes={notes}
-          onNavigateNote={this.navigateNote}
-          onRemoveNote={this.removeNote}
-        />
-      </View>
+      <NoteList
+        notes={notes}
+        onNavigateNote={this.navigateNote}
+        onRemoveNote={this.removeNote}
+      />
     )
   }
 }

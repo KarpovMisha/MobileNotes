@@ -7,6 +7,7 @@ const avatar_3 = require('../../images/avatar_3.jpg');
 const STATE_KEY = 'projects';
 const ADD_PROJECT = `${STATE_KEY}/ADD_PROJECT`;
 const INIT_PROJECTS = `${STATE_KEY}/INIT_PROJECTS`;
+const REMOVE_PROJECT = `${STATE_KEY}/REMOVE_PROJECT`;
 
 const user_1 = {
   userName: 'Мурзик',
@@ -79,9 +80,25 @@ export default function reducer(state = initialState, action) {
       return action.payload.projects;
     }
 
+    case REMOVE_PROJECT: {
+      const id = action.payload.id;
+      const oneLess = handleRemoveProject(state.projects, id);
+      const newState = {...state, projects: oneLess};
+
+      AsyncStorage.setItem('projects', JSON.stringify(newState));
+      return newState;
+    }
+
     default: {
       return state;
     }
+  }
+}
+
+export function removeProject(id) {
+  return {
+    type: REMOVE_PROJECT,
+    payload: { id }
   }
 }
 
@@ -90,6 +107,10 @@ export function initiaProjectsFromStore(projects) {
     type: INIT_PROJECTS,
     payload: { projects }
   }
+}
+
+function handleRemoveProject(projects, id) {
+  return projects.filter(c => c.id !== id);
 }
 
 function handleProject(projects, id, name) {
